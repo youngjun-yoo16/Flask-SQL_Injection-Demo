@@ -9,6 +9,6 @@ I intentionally added a page that can be attacked with SQL injection for the pur
 
 ## Skill Stacks
 
-`Frontend`  : `HTML5` and `CSS3` with Jinja template engine
+`Frontend`  : `HTML5` and `CSS3` with `Jinja` template engine
 
 `Backend`   : `Flask` and `SQLite`
