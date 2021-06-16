@@ -1,6 +1,7 @@
 # Flask_Blog_Demo
 
-This basic Flask blog app was created for the pre-development research at Fasoo.
+This basic Flask blog app was created for the pre-development research at Fasoo. 
+Utilized Flask's CRUD functionality to allow the user to add, update, delete, and edit posts.
 
 ## Skill Stacks
 
