@@ -9,8 +9,8 @@ db = SQLAlchemy(app)
 
 class BlogPost(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(255), nullable=False)
-    content = db.Column(db.Text, nullable=False)
+    title = db.Column(db.String(255), nullable=False, default='None')
+    content = db.Column(db.Text, nullable=False, default='None')
     author = db.Column(db.String(20), nullable=False, default='N/A')
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     
@@ -66,6 +66,15 @@ def new_post():
         return redirect('/posts')
     else:
         return render_template('new_post.html')
+    
+@app.route('/posts/filter', methods=['GET', 'POST'])
+def filter():
+    if request.method == 'POST':
+        post_author = request.form['author']
+        filtered_author = BlogPost.query.filter_by(author=post_author).all()
+        return render_template('filtered_posts.html', posts=filtered_author)
+    else:
+        return render_template('filter.html')
     
 @app.route('/insecureposts', methods=['GET', 'POST'])
 # @app.route('/insecureposts/<string:name>', methods=['GET', 'POST'])
