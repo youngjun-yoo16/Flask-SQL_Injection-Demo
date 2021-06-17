@@ -9,8 +9,8 @@ db = SQLAlchemy(app)
 
 class BlogPost(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(255), nullable=False, default='None')
-    content = db.Column(db.Text, nullable=False, default='None')
+    title = db.Column(db.String(255), nullable=False)
+    content = db.Column(db.Text, nullable=False)
     author = db.Column(db.String(20), nullable=False, default='N/A')
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     
@@ -67,15 +67,6 @@ def new_post():
     else:
         return render_template('new_post.html')
     
-@app.route('/posts/filter', methods=['GET', 'POST'])
-def filter():
-    if request.method == 'POST':
-        post_author = request.form['author']
-        filtered_author = BlogPost.query.filter_by(author=post_author).all()
-        return render_template('filtered_posts.html', posts=filtered_author)
-    else:
-        return render_template('filter.html')
-    
 @app.route('/insecureposts', methods=['GET', 'POST'])
 # @app.route('/insecureposts/<string:name>', methods=['GET', 'POST'])
 def insecureposts():
@@ -91,14 +82,6 @@ def insecureposts():
         # all_posts = BlogPost.query.filter(text("author={}".format("\'" + name + "\'"))).all()
         all_posts = BlogPost.query.order_by(BlogPost.date_posted).all()
         return render_template('insecurePosts.html', posts=all_posts)
-    
-@app.route('/home/users/<string:name>/posts/<int:id>')
-def hello(name, id):
-    return "Hello, " + name + ", your id is: " +  str(id)
-
-@app.route('/onlyget', methods=['GET'])
-def get_req():
-    return 'You can only get this webpage. 4'
 
 if __name__ == "__main__":
 	app.run(debug=True)
